@@ -1,0 +1,290 @@
+logintype
+--------
+@*@{
+        Layout = null;
+    }*@
+
+
+@{
+    ViewBag.Title = "Login";
+}
+<div class="alert-success">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @Style = "border: 3px solid blue; margin:50px auto; text-align: center;" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+
+            <br />
+            <a href="@Url.Action("sendotp","User")"><input type="button" value="Login With Numbe"></a><br />
+            <h4>OR</h4><br />
+            <a href="@Url.Action("login","User")"><input type="button" value="Login With Email"></a><br /><br />
+            <a href="@Url.Action("About","Home")"><input type="button" value="Sign Up"></a><br /><br />
+
+            @*<button type="submit" value="Signup" onsubmit="onclick1dfsd()">Sign Up</button>*@
+            @*<input type="submit" class="btn btn-danger" value="Reject" name="response" formaction="@Url.Action("LoginWithEmail")" />*@
+        </div>
+
+    }
+</div>
+
+<style>
+    .form-group a {
+        color: black;
+        Background-color: aqua;
+    }
+</style>
+-----------------------------------------------------------------------
+login (login with email)-----
+--------------------
+@model authentication.Models.LoginModel
+
+
+
+
+@using (Html.BeginForm("login", "User", FormMethod.Post, new { @class = "form-container" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>LoginModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.userEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.userEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.userEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.userPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.userPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@*<div class="centered-form">
+
+        @using (Html.BeginForm("login", "User", FormMethod.Post, new { @class = "form-container" }))
+        {
+            <div>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.userEmail, "User Email", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBoxFor(m => m.userEmail, new { @PlaceHolder = "Enter Email", @class = "red" })<br />
+                        @Html.ValidationMessageFor(model => model.userEmail, "", new { @class = "text-danger" })<br />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.userPassword, "Password", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBoxFor(m => m.userPassword, new { @PlaceHolder = "Enter Passwords", @class = "red", Type = "password" })<br />
+                        @Html.ValidationMessageFor(model => model.userPassword, "", new { @class = "text-danger" })<br /><br />
+                        <p class="text-danger">@ViewBag.ErrorMessage</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-default">
+                    <a href="@Url.Action("About","Home")"><input type="button" value="Sign Up" class="btn btn-default"></a>
+
+                </div>
+            </div>
+
+        }
+    </div>
+    <style>
+        .centered-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            /*height: 100vh;*/
+        }
+
+        .form-container {
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+@*<!doctype html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index</title>
+</head>
+<body>
+    <div>
+        <form id="verify" method="post" action="/user/matchotp">
+            <label>enter email</label> <input type="text" name="userEmail" /><br />
+            <label>enter pass</label> <input type="password" name="userPassword" /><br />
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+</body>
+</html>*@
+---------------------------------------------------------------------------------
+sendotp------
+------
+@*@{
+        Layout = null;
+    }
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <form id="send" method="POST" action="/user/sendotp">
+            <label>enter mobile</label> <input type="text" name="mobileno" /><br />
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+</body>
+</html>*@
+
+
+@model authentication.Models.LoginModel
+
+@{
+    ViewBag.Title = "generateotp";
+}
+
+
+
+
+@using (Html.BeginForm("sendotp", "user", FormMethod.Post, new { @class = "form-container" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="generate Otp" class="btn btn-default" />*@
+                @*<a href="@Url.Action("MatchOtp","Home")"><button type="submit" value="Generate Otp" class="btn btn-default"></button></a>*@
+                <input type="submit" value="Send Otp" class="btn btn-default" />
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.LoginOtp, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LoginOtp, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LoginOtp, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+----------------------------------------------------------------------------------
+match otp----------
+----------
+@*@{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <div>
+            <form id="matchotp" method="POST" action="/user/matchotp">
+                <label>enter otp</label> <input type="text" name="userotp" /><br />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </body>
+    </html>*@
+
+@model authentication.Models.LoginUser
+
+
+
+    @{
+        ViewBag.Title = "MatchOtp";
+    }
+
+
+
+    @using (Html.BeginForm("MatchOtp", "User", FormMethod.Post, new { @class = "form-container" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.LoginOtp, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LoginOtp, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LoginOtp, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Login" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+--------------------------------------------------------------------------------
