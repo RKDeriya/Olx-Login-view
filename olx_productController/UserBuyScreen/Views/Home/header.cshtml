@@ -1,0 +1,280 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>olc</title>
+    <script src="https://kit.fontawesome.com/43e3546376.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    @model IEnumerable<UserBuyScreen.Models.ModelProductCategory>
+
+    <div class="second-header a">
+
+        @*<div class="dropdown">
+        <nav>
+            <label for="btn" class="button">
+                All Category
+                <span class="fas fa-caret-down"></span>
+            </label>
+            <input type="checkbox" id="btn" class="checkboxnone">
+            <ul class="menu">
+
+
+
+                @foreach (var item in Model)
+                {
+
+
+                    <li>*@
+        @*@Html.DisplayFor(modelItem => item.productCategoryName)*@
+        @*<a href="@Url.Action("ShowByCategory", new { category = item.productCategoryName })">
+                @Html.DisplayFor(modelItem => item.productCategoryName)
+            </a>
+        </li>
+
+
+    }*@
+        @*<li>
+            <label for="btn-2" class="first">cars<span class="fas fa-caret-down"></span></label>
+            <input type="checkbox" id="btn-2" class="checkboxnone">
+            <ul>
+                <li><a href="@Url.Action("ShowBySubCategory")" id="BMW" name="BMW" value="BMW">bmw</a></li>
+                <li><a href="">mini copper</a></li>
+
+            </ul>
+        </li>
+
+        <li>
+            <label for="btn-3" class="second">fashion <span class="fas fa-caret-down"></span></label>
+            <input type="checkbox" id="btn-3" class="checkboxnone"><ul>
+                <li><a href="">shoes</a></li>
+                <li><a href="">kurta</a></li>
+
+            </ul>
+        </li>
+
+        <li>
+            <label for="btn-4" class="third">mobile <span class="fas fa-caret-down"></span></label>
+            <input type="checkbox" id="btn-4" class="checkboxnone">  <ul>
+                <li><a href="">apple</a></li>
+                <li><a href="">samsung</a></li>
+
+            </ul>
+        </li>*@
+
+        <!--</ul>
+        </nav>
+
+
+
+    </div>-->
+        <div class="dropdown">
+            <nav>
+                <label for="btn" class="button">
+                    All Category
+                    <span class="fas fa-caret-down"></span>
+                </label>
+                <input type="checkbox" id="btn" class="checkboxnone">
+                <ul class="menu">
+                    @foreach (var category in Model)
+                    {
+                        <li>
+                            <a href="@Url.Action("ShowBySubcategory", new { categoryId = category.productCategoryId })">
+                                @Html.DisplayFor(modelItem => category.productCategoryName)
+                            </a>
+                            <ul>
+                                @foreach (var subcategory in Model)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("showAllSubCategory", new { subcategoryId = @subcategory.productSubCategoryId })">
+                                            @Html.DisplayFor(modelItem => subcategory.productSubCategoryName)
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+    <style>
+
+        dropdown {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: black;
+            width: 400px;
+            z-index: 50;
+        }
+
+        nav {
+            top: 20%;
+            left: 50%;
+            background: black;
+            width: 300px;
+            line-height: 25px;
+            padding: 8px 25px;
+        }
+
+            nav label {
+                color: white;
+                font-size: 22px;
+                font-weight: 500;
+                display: block;
+                cursor: pointer;
+            }
+
+        .button span {
+            float: right;
+            line-height: 35px;
+        }
+        /* nav ul{
+                position:absolute;
+                background:#1b1b1b;
+                list-style:none;
+                top:70px;
+                width:100%;
+            }*/
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            position: absolute;
+            background: #1b1b1b;
+            list-style: none;
+            top: 70px;
+            width: 100%;
+            left: 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        [id^=btn]:checked + ul {
+            display: block;
+        }
+
+        nav .menu:before {
+            position: absolute;
+            content: '';
+            height: 20px;
+            width: 20px;
+            background: #1b1b1b;
+            right: 20px;
+            top: -10px;
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        nav ul li {
+            line-height: 40px;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+        }
+
+            nav ul li label {
+                font-size: 18px;
+            }
+
+        nav ul li {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav ul ul li a:hover,
+        nav ul ul li label:hover {
+            color: cyan;
+        }
+
+        nav ul ul {
+            position: static;
+        }
+
+            nav ul ul li {
+                line-height: 30px;
+                padding-left: 30px;
+                border-bottom: none;
+            }
+
+                nav ul ul li a {
+                    color: #e6e6e6;
+                    font-size: 18px;
+                }
+
+            nav ul ul span {
+                font-size: 20px;
+                float: right;
+                margin-top: 10px;
+                padding: 0 10px;
+            }
+
+        /* input {
+            display:none;
+        }*/
+        container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 5%;
+            background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9));
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            float: left;
+        }
+
+        .second-header {
+            width: 100%;
+            height: 40px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            background-color: #f3f3f3;
+            position: relative;
+            z-index: 50px;
+            /* border:2px solid red; */
+        }
+
+            .second-header a {
+                text-decoration: none;
+                color: red;
+                margin-left: 15px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+                .second-header a:hover {
+                    color: cornflowerblue;
+                }
+
+        .checkboxnone {
+            display: none;
+        }
+    </style>
+
+</body>
+</html>
+
+
