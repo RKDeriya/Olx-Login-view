@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices.Internal;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,7 @@ namespace UserBuyScreen.Controllers
     public class HomeController : Controller
     {
 
-
+        public ActionResult header() { return View(); } 
         public ActionResult Index() 
         { 
         return View();
@@ -88,15 +89,22 @@ namespace UserBuyScreen.Controllers
         {
             DataAccess dataAccess = new DataAccess();
             IEnumerable<ModelProductCategory> category = dataAccess.GetCategory();
-
-            return View(category);
+            if (category != null)
+            {
+                return View(category);
+            }
+            return View();
         }
-        public ActionResult showAllSubCategory()
-        {
+        public ActionResult Showsubcategorydetails(int procategoryid)
+            {
             DataAccess dataAccess = new DataAccess();
-            IEnumerable<ModelProductSubCategory> Subcategory = dataAccess.GetSubCategory();
+            List<ModelProductSubCategory>sublist=dataAccess.GetSubByCategoryId(procategoryid);
+            if (sublist!=null)
+            {
+            return View(sublist);
+            }
+            return View();
 
-            return View(Subcategory);
-        }
+}
     }
 }

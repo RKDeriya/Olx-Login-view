@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -226,28 +227,28 @@ namespace UserBuyScreen.Models
         }
         #endregion
 
-        #region ShowAllSubCategory
-        public IEnumerable<ModelProductSubCategory> GetSubCategory()
+        #region subcategorydetail
+        public List<ModelProductSubCategory> GetSubByCategoryId(int procategoryid)
         {
-            List<ModelProductSubCategory> products = new List<ModelProductSubCategory>();
-            string query = "SELECT productSubCategoryId,productSubCategoryName FROM tbl_ProductSubCategory";
-            SqlCommand cmd = new SqlCommand(query, _connection);
+            List<ModelProductSubCategory> sub = new List<ModelProductSubCategory>();
+            SqlCommand cmd = new SqlCommand("subcategorydetails", _connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@productcategoryid", procategoryid);
             _connection.Open();
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
-                ModelProductSubCategory subcategory = new ModelProductSubCategory()
+                ModelProductSubCategory model = new ModelProductSubCategory()
                 {
-                    productSubCategoryId = Convert.ToInt32(dr["productSubCategoryId"]),
-                    productSubCategoryName = Convert.ToString(dr["productSubCategoryName"])
-
+                    productSubCategoryId = Convert.ToInt32(reader["productSubCategoryId"]),
+                    productSubCategoryName = reader["productSubCategoryName"].ToString()
                 };
-                products.Add(subcategory);
+                sub.Add(model);
             }
             _connection.Close();
-            return products;
+            return sub;
         }
+
         #endregion
     }
 }

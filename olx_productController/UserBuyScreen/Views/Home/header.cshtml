@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<UserBuyScreen.Models.ModelProductCategory>
+
+
+@{
     Layout = null;
 }
 
@@ -19,68 +22,67 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    @model IEnumerable<UserBuyScreen.Models.ModelProductCategory>
 
     <div class="second-header a">
 
         @*<div class="dropdown">
-        <nav>
-            <label for="btn" class="button">
-                All Category
-                <span class="fas fa-caret-down"></span>
-            </label>
-            <input type="checkbox" id="btn" class="checkboxnone">
-            <ul class="menu">
+            <nav>
+                <label for="btn" class="button">
+                    All Category
+                    <span class="fas fa-caret-down"></span>
+                </label>
+                <input type="checkbox" id="btn" class="checkboxnone">
+                <ul class="menu">
 
 
 
-                @foreach (var item in Model)
-                {
+                    @foreach (var item in Model)
+                    {
 
 
-                    <li>*@
+                        <li>*@
         @*@Html.DisplayFor(modelItem => item.productCategoryName)*@
         @*<a href="@Url.Action("ShowByCategory", new { category = item.productCategoryName })">
-                @Html.DisplayFor(modelItem => item.productCategoryName)
-            </a>
-        </li>
+                        @Html.DisplayFor(modelItem => item.productCategoryName)
+                    </a>
+                </li>
 
 
-    }*@
+            }*@
         @*<li>
-            <label for="btn-2" class="first">cars<span class="fas fa-caret-down"></span></label>
-            <input type="checkbox" id="btn-2" class="checkboxnone">
-            <ul>
-                <li><a href="@Url.Action("ShowBySubCategory")" id="BMW" name="BMW" value="BMW">bmw</a></li>
-                <li><a href="">mini copper</a></li>
+                <label for="btn-2" class="first">cars<span class="fas fa-caret-down"></span></label>
+                <input type="checkbox" id="btn-2" class="checkboxnone">
+                <ul>
+                    <li><a href="@Url.Action("ShowBySubCategory")" id="BMW" name="BMW" value="BMW">bmw</a></li>
+                    <li><a href="">mini copper</a></li>
 
-            </ul>
-        </li>
+                </ul>
+            </li>
 
-        <li>
-            <label for="btn-3" class="second">fashion <span class="fas fa-caret-down"></span></label>
-            <input type="checkbox" id="btn-3" class="checkboxnone"><ul>
-                <li><a href="">shoes</a></li>
-                <li><a href="">kurta</a></li>
+            <li>
+                <label for="btn-3" class="second">fashion <span class="fas fa-caret-down"></span></label>
+                <input type="checkbox" id="btn-3" class="checkboxnone"><ul>
+                    <li><a href="">shoes</a></li>
+                    <li><a href="">kurta</a></li>
 
-            </ul>
-        </li>
+                </ul>
+            </li>
 
-        <li>
-            <label for="btn-4" class="third">mobile <span class="fas fa-caret-down"></span></label>
-            <input type="checkbox" id="btn-4" class="checkboxnone">  <ul>
-                <li><a href="">apple</a></li>
-                <li><a href="">samsung</a></li>
+            <li>
+                <label for="btn-4" class="third">mobile <span class="fas fa-caret-down"></span></label>
+                <input type="checkbox" id="btn-4" class="checkboxnone">  <ul>
+                    <li><a href="">apple</a></li>
+                    <li><a href="">samsung</a></li>
 
-            </ul>
-        </li>*@
+                </ul>
+            </li>*@
 
         <!--</ul>
-        </nav>
+            </nav>
 
 
 
-    </div>-->
+        </div>-->
         <div class="dropdown">
             <nav>
                 <label for="btn" class="button">
@@ -92,19 +94,19 @@
                     @foreach (var category in Model)
                     {
                         <li>
-                            <a href="@Url.Action("ShowBySubcategory", new { categoryId = category.productCategoryId })">
+                            <a href="@Url.Action("showAllCategory","Home", new { procategoryid = category.productCategoryId })">
                                 @Html.DisplayFor(modelItem => category.productCategoryName)
                             </a>
-                            <ul>
-                                @foreach (var subcategory in Model)
-                                {
-                                    <li>
-                                        <a href="@Url.Action("showAllSubCategory", new { subcategoryId = @subcategory.productSubCategoryId })">
-                                            @Html.DisplayFor(modelItem => subcategory.productSubCategoryName)
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
+                            @*<ul>
+                                    @foreach (var subcategory in Model)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Showsubcategorydetails", new { subcategoryId = @subcategory.productSubCategoryId })">
+                                                @Html.DisplayFor(modelItem => subcategory.productSubCategoryName)
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>*@
                         </li>
                     }
                 </ul>
